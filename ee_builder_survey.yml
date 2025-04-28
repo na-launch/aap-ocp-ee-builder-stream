@@ -8,7 +8,6 @@
     ee_registry_dest:  "{{ lookup('env', 'CONTROLLER_HOST') }}/ee-builder-pipeline"
     ee_registry_username:  "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
     ee_registry_password:  "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
-    ah_token: "{{ lookup('env', 'CONTROLLER_OAUTH_TOKEN') default('null') }}"
     ee_list:
       - name: "{{ ee_name }}"
         image: "{{ base_image }}"
