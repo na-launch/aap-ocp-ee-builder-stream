@@ -10,7 +10,7 @@
     ee_registry_password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
     ah_token: "{{ lookup('env', 'CONTROLLER_OAUTH_TOKEN') }}"
     ee_list:
-      - name: ee_ocp_runner_2
+      - name: ubi-ee-infra-utilities
         image: registry.access.redhat.com/ubi9-minimal:latest
         dependencies:
           ansible_core:
