@@ -10,22 +10,15 @@
     ee_registry_password:  "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
     ee_list:
       - name: "{{ ee_name }}"
-        image: "{{ base_image }}"
         dependencies:
           ansible_core:
-            package_pip: ansible-core==2.16
+            package_pip: ansible-core
           ansible_runner:
             package_pip: ansible-runner
           system: "{{ system_pkgs }}"
           python: "{{ python_pkgs }}"
           galaxy:
             collections: "{{ galaxy_pkgs }}"
-          exclude:
-            system:
-              - container-selinux
-        options:
-          tags:
-            - ee_development:latest
         build_steps:
           prepend_galaxy:
             - ENV ANSIBLE_GALAXY_SERVER_LIST=automation_hub_certified,upstream_galaxy
@@ -35,4 +28,3 @@
 
   roles:
     - infra.ee_utilities.ee_builder
-
