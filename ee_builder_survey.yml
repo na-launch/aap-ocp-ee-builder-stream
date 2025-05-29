@@ -8,6 +8,7 @@
     ee_registry_dest:  "{{ lookup('env', 'CONTROLLER_HOST') }}/ee-builder-pipeline"
     ee_registry_username:  "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
     ee_registry_password:  "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
+    ah_token: "{{ lookup('env', 'CONTROLLER_OAUTH_TOKEN') }}"
     ee_list:
       - name: "{{ ee_name }}"
         dependencies:
@@ -15,10 +16,20 @@
             package_pip: ansible-core
           ansible_runner:
             package_pip: ansible-runner
-          system: "{{ system_pkgs }}"
-          python: "{{ python_pkgs }}"
+          system: 
+            - podman
+          python: 
+            - awxkit
           galaxy:
-            collections: "{{ galaxy_pkgs }}"
+            collections: 
+              - awx.awx
+              - "{{ galaxy_pkg }}"
+          exclude:
+            system:
+              - container-selinux
+        options:
+          tags:
+            - ee_development:latest
         build_steps:
           prepend_galaxy:
             - ENV ANSIBLE_GALAXY_SERVER_LIST=automation_hub_certified,upstream_galaxy
